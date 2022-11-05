@@ -2,20 +2,20 @@ import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:food_app_2/helper/app_color.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:food_app_2/helper/dialog_helper.dart';
+import 'package:food_app_2/helper/secure_storage_helper.dart';
 import 'package:food_app_2/model/appUser.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'nav_helper.dart';
 
 class DatabaseHelper {
-  String? userId;
+  String? userId, token;
   User? loggedInUser;
   AppUser? appUser;
   static DatabaseHelper? service;
+
   DatabaseHelper({this.userId});
 
   static DatabaseHelper getInstance() {
@@ -174,6 +174,20 @@ class DatabaseHelper {
       );
   }
 
+  //Code by Kali
+  // Future<AppUser?> getUserDetails() async {
+  //   loggedInUser = authInstance.currentUser;
+  //   if (loggedInUser != null) {
+  //     DocumentSnapshot snapshot =
+  //         await dbStore.collection("Users").doc(loggedInUser!.uid).get();
+  //     appUser = AppUser().fromMap(
+  //       snapshot.data() as LinkedHashMap,
+  //     );
+  //   }
+  //   return appUser;
+  // }
+
+  //Code change for shared preference
   Future<AppUser?> getUserDetails() async {
     loggedInUser = authInstance.currentUser;
     if (loggedInUser != null) {
@@ -182,7 +196,16 @@ class DatabaseHelper {
       appUser = AppUser().fromMap(
         snapshot.data() as LinkedHashMap,
       );
+      SecureStorage.saveUserData(appUser!);
     }
     return appUser;
+  }
+
+  getToken() async {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+    _firebaseMessaging.getToken().then((token) {
+      print(token);
+      this.token = token; // Print the Token in Console
+    });
   }
 }

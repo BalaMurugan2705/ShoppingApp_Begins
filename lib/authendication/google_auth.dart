@@ -10,11 +10,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../cubit/userdata_cubit.dart';
 import '../helper/dialog_helper.dart';
 import '../helper/firebase_helper.dart';
+import '../helper/preferenceHelper.dart';
 import '../helper/utlis.dart';
 import '../model/userModel_forDb.dart';
 
 class GoogleAuth {
   var authInstance = FirebaseAuth.instance;
+
   Future<void> googleSignIn(context) async {
     GoogleSignIn _googleSignIn = GoogleSignIn(
       clientId: Utils.id,
@@ -67,6 +69,7 @@ class GoogleAuth {
       print(res);
       print(appUser?.name);
       if (userCredential.user?.uid != "") {
+        PreferenceHelper.saveInitialLogin();
         openScreen(dashBoard, requiresAsInitial: true);
         DialogueHelper().customToast(context,
             status: "Success",

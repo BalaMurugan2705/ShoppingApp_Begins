@@ -5,7 +5,9 @@ import 'package:food_app_2/helper/Style.dart';
 import 'package:food_app_2/helper/api_helper.dart';
 import 'package:food_app_2/helper/app_color.dart';
 import 'package:food_app_2/helper/app_localizations.dart';
+import 'package:food_app_2/helper/firebase_helper.dart';
 import 'package:food_app_2/helper/nav_helper.dart';
+import 'package:food_app_2/helper/secure_storage_helper.dart';
 import 'package:food_app_2/model/GetProductDetails.dart';
 import 'package:food_app_2/widget/container_button.dart';
 import 'package:food_app_2/widget/custom_scaffold.dart';
@@ -15,6 +17,8 @@ import 'package:food_app_2/widget/shimmer_widget.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    DatabaseHelper().getToken();
+    SecureStorage.getUserData();
     context.read<ProductCubit>().getAllProducts(context);
     return Scafold(
       child: SingleChildScrollView(

@@ -1,6 +1,6 @@
 import 'dart:collection';
+
 import 'baseModel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AppUser extends BaseModel {
   String? name = "";
@@ -59,7 +59,7 @@ class AppUser extends BaseModel {
       zipcode = json["Zipcode"] ?? "";
     }
     if (json.containsKey("uid")) {
-      uid = json["uid"] ?? uid ?? "";
+      this.uid = json["uid"] ?? uid ?? "";
     }
     if (json.containsKey("Phone")) {
       phone = json["Phone"] ?? "";
@@ -76,18 +76,18 @@ class AppUser extends BaseModel {
 
   @override
   Map<String, dynamic> toJson() => {
-        'Name': name,
-        'LastName': lastname,
-        'email': email,
-        'Password': password,
-        'City': city,
-        'Street': street,
-        'Door No': doorNo,
-        'Zipcode': zipcode,
-        'dob': dob,
-        'phone': phone,
-        'image': image,
-        'isAdmin': isAdmin,
-        'uid': uid,
+        'Name': name ?? "",
+        'LastName': lastname ?? "",
+        'Email': email ?? "",
+        'Password': password ?? "",
+        'City': city ?? "",
+        'Street': street ?? "",
+        'Door No': doorNo ?? "",
+        'Zipcode': zipcode ?? "",
+        'DOB': dob ?? "",
+        'phone': phone ?? "",
+        'image': image ?? "",
+        'isAdmin': isAdmin ?? false,
+        'uid': uid ?? "",
       };
 }

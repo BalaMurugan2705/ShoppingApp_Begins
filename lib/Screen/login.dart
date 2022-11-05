@@ -16,6 +16,7 @@ import '../authendication/google_auth.dart';
 import '../helper/api_helper.dart';
 import '../helper/dialog_helper.dart';
 import '../helper/nav_helper.dart';
+import '../helper/preferenceHelper.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -31,12 +32,14 @@ class _LoginScreenState extends State<LoginScreen> {
   ValueNotifier<bool> email1 = ValueNotifier<bool>(false);
   TextEditingController password = TextEditingController();
   ValueNotifier<bool> password1 = ValueNotifier<bool>(false);
+
   // TextEditingController phone = TextEditingController();
   // ValueNotifier<bool> phone1 = ValueNotifier<bool>(false);
   // TextEditingController otp = TextEditingController();
   // ValueNotifier<bool> otp1 = ValueNotifier<bool>(false);
   // bool phoneLogin = false;
   bool visible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scafold(
@@ -161,6 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
           setState(() {
             visible = true;
           });
+          PreferenceHelper.saveInitialLogin();
           openScreen(dashBoard);
         }
       }

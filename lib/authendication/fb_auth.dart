@@ -7,6 +7,7 @@ import 'package:food_app_2/helper/dialog_helper.dart';
 import 'package:food_app_2/helper/firebase_helper.dart';
 import 'package:food_app_2/helper/nav_helper.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:food_app_2/helper/preferenceHelper.dart';
 import 'package:food_app_2/model/userModel_forDb.dart';
 
 import '../cubit/userdata_cubit.dart';
@@ -14,6 +15,7 @@ import '../cubit/userdata_cubit.dart';
 class FBAuth {
   String status = "";
   String msg = "";
+
   Future<void> signInWithFacebook(context) async {
     try {
       // FacebookLoginResult result = await FacebookLogin().logIn();
@@ -61,6 +63,7 @@ class FBAuth {
             .createUserDB(context, body: user.toJson());
         print(res);
         print(appUser?.name);
+        PreferenceHelper.saveInitialLogin();
         openScreen(dashBoard, requiresAsInitial: true);
         DialogueHelper().customToast(context, status: status, message: msg);
       } else if (result.status == LoginStatus.cancelled) {
