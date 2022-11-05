@@ -14,6 +14,7 @@ import '../helper/app_vaditations.dart';
 import '../helper/dialog_helper.dart';
 import '../helper/firebase_helper.dart';
 import '../helper/nav_helper.dart';
+import '../helper/preferenceHelper.dart';
 import '../model/userModel_forDb.dart';
 import '../widget/container_button.dart';
 import '../widget/otp_field/otp_field_style.dart';
@@ -359,6 +360,7 @@ class _LoginWithPhoneOtpState extends State<LoginWithPhoneOtp> {
         isLoading = false;
       });
       if (userCredential.user?.uid != "") {
+        PreferenceHelper.saveInitialLogin();
         openScreen(dashBoard, requiresAsInitial: true);
         DialogueHelper().customToast(context,
             status: "Success",
@@ -422,6 +424,7 @@ class _LoginWithPhoneOtpState extends State<LoginWithPhoneOtp> {
       });
       if (userCredential.user?.uid != "") {
         print("verification completed $otpValue");
+        PreferenceHelper.saveInitialLogin();
         openScreen(dashBoard, requiresAsInitial: true);
         DialogueHelper().customToast(context,
             status: "Success",
