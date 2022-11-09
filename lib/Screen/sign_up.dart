@@ -19,6 +19,8 @@ import 'package:food_app_2/widget/custom_scaffold.dart';
 import 'package:food_app_2/widget/textFieldWidget.dart';
 import 'package:http/http.dart';
 
+import '../helper/utlis.dart';
+
 class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
 
@@ -30,7 +32,7 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController name = TextEditingController();
-
+  TextEditingController dob = TextEditingController();
   bool name1 = false;
 
   TextEditingController lastName = TextEditingController();
@@ -93,6 +95,7 @@ class _SignUpState extends State<SignUp> {
                             nameField(),
                             lastNameField(),
                             emailField(),
+                            dateOfBirth(),
                             passwordField(),
                             cityField(),
                             streetField(),
@@ -216,7 +219,63 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
-
+  Widget dateOfBirth() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextFieldButton(
+                onTap: () async {
+                  var date = await showDatePicker(
+                      builder: (context, child) {
+                        return Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme:  ColorScheme.light(
+                                primary: AppColor.amber,
+                                // header background color
+                                onPrimary: AppColor.appBackground,
+                                // header text color
+                                onSurface: Colors.black, // body text color
+                              ),
+                            ),
+                            child: child ?? Container(),
+                          ),
+                        );
+                      },
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime.now());
+                  dob.text = formatedDate("dd/MM/yyyy", date.toString());
+                  setState(() {});
+                },
+                controller: dob,
+                onChange: (val){
+                },
+                textAlign: TextAlign.start,
+                labelText: AppLocalizations.of(context)?.translate("date_birth") ?? "",
+                fontsize: 14,
+                borderRadius: 10,
+                color: AppColor.textGrey,
+                fontweight: FontWeight.w400,
+              ),
+            ),
+            Visibility(
+              visible: name1,
+              child: Icon(
+                Icons.check,
+                color: AppColor.checkGreen,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   Widget lastNameField() {
     return Card(
       child: Padding(
@@ -639,6 +698,7 @@ class _SignUpState extends State<SignUp> {
                       street: street.text,
                       doorNo: doorNo.text,
                       zipcode: zipcode.text,
+                      dob: dob.text,
                       phone: phone.text);
                   Name nameObj =
                       Name(firstname: name.text, lastname: lastName.text);

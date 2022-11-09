@@ -33,6 +33,7 @@ class TextFieldButton extends StatelessWidget {
   bool? enable;
   Widget? prefix;
   Widget? suffix;
+  Function()? onTap;
   List<TextInputFormatter>? inputFormat;
   FloatingLabelBehavior? floating;
   FocusNode? focusNode;
@@ -67,6 +68,7 @@ class TextFieldButton extends StatelessWidget {
       this.minLine = 1,
       this.prefix,
       this.labelFontFamily,
+        this.onTap,
       this.floating = FloatingLabelBehavior.auto,
       this.focusNode})
       : super(key: key);
@@ -74,6 +76,7 @@ class TextFieldButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
       inputFormatters: inputFormat,
       controller: controller,
       focusNode: focusNode,

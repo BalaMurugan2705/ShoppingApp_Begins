@@ -267,6 +267,9 @@ class Profile extends StatelessWidget {
                   thickness: 0.2,
                 ),
                 ListTile(
+                  onTap: (){
+                    openScreen(settings);
+                  },
                   minLeadingWidth: 0,
                   contentPadding: EdgeInsets.zero,
                   title: Text(
