@@ -1,12 +1,16 @@
 import 'dart:collection';
+import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_app_2/helper/Style.dart';
 import 'package:food_app_2/helper/app_color.dart';
 import 'package:food_app_2/helper/app_localizations.dart';
 import 'package:food_app_2/helper/nav_helper.dart';
+import 'package:food_app_2/helper/utlis.dart';
 import 'package:food_app_2/widget/container_button.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DialogueHelper {
   static showErrorDialog(
@@ -127,5 +131,94 @@ class DialogueHelper {
       color: AppColor.teal,
       strokeWidth: 6,
     );
+  }
+  imagePicker(BuildContext context){
+
+    showModalBottomSheet(context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20)
+            )
+        ),
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height*0.2
+        ),
+        builder: (context){
+
+      return Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              AppLocalizations.of(context)?.translate("select") ?? "",
+              style: FdStyle.sofiaTitle(color: AppColor.titleBlack,fontSize: 16),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.03,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+              Column(
+                children: [
+                  IconButton(onPressed: ()async{
+                    ImagePicker imagePicker=ImagePicker();
+                    XFile? file= await imagePicker.pickImage(source: ImageSource.camera);
+                    print(file?.path);
+
+                    if (file == null) return;
+
+                    String uniqueFileName=DateTime.now().millisecondsSinceEpoch.toString();
+
+                    Reference referenceRoot= FirebaseStorage.instance
+                        .ref();
+                    Reference referenceImageToUpload=referenceRoot.child("images").child(uniqueFileName);
+                    try{
+                      await referenceImageToUpload.putFile(File(file.path));
+                      imageURL=await referenceImageToUpload.getDownloadURL();
+                      print(imageURL.toString());
+                    }
+                    catch(e){}
+
+                  }, icon: Icon(Icons.camera_alt_outlined)),
+                  Text(
+                    AppLocalizations.of(context)?.translate("camera") ?? "",
+                    style: FdStyle.sofiaTitle(color: AppColor.titleBlack,fontSize: 12),
+                  ),
+                ],
+              ),
+
+              Column(
+                children: [
+                  IconButton(onPressed: ()async{
+                    ImagePicker imagePicker=ImagePicker();
+                    XFile? file= await imagePicker.pickImage(source: ImageSource.gallery);
+                    print(file?.path);
+
+                    if (file == null) return;
+
+                    String uniqueFileName=DateTime.now().millisecondsSinceEpoch.toString();
+
+                    Reference referenceRoot= FirebaseStorage.instance
+                        .ref();
+                    Reference referenceImageToUpload=referenceRoot.child("images").child(uniqueFileName);
+                    try{
+                      await referenceImageToUpload.putFile(File(file.path));
+                      imageURL=await referenceImageToUpload.getDownloadURL();
+                      print(imageURL.toString());
+                    }
+                    catch(e){}
+                  }, icon: Icon(Icons.folder_copy_rounded)),
+                  Text(
+                    AppLocalizations.of(context)?.translate("gallery") ?? "",
+                    style: FdStyle.sofiaTitle(color: AppColor.titleBlack,fontSize: 12),
+                  ),
+                ],
+              ),
+            ],)
+          ],
+        ),
+      );
+    });
   }
 }

@@ -48,10 +48,13 @@ dependencies:
   flutter_bloc: ^8.1.1
   bloc: ^8.1.0
   flutter_facebook_auth: ^4.4.1+1
-  sms_autofill: ^2.2.0
   flutter_secure_storage: ^6.0.0
   firebase_messaging: ^14.0.4
   shared_preferences: ^2.0.15
+  image_picker: ^0.8.6
+  firebase_storage: ^11.0.4
+  sms_and_phone_autofill: ^1.0.0
+
 
 
 dev_dependencies:

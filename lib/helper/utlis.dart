@@ -1,5 +1,6 @@
 import 'dart:io';
-
+import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Utils {
@@ -15,3 +16,13 @@ const platform = MethodChannel('samples.flutter.dev/battery');
 Future<dynamic> saveToDocuments(String filePath) async {
   return await platform.invokeMethod('saveToDocuments', filePath);
 }
+String formatedDate(String format, String timeStamp) {
+  if (timeStamp == null || timeStamp.isEmpty) return "";
+  final f = DateFormat(format);
+  DateTime dateTime = DateTime.parse(timeStamp);
+  if (dateTime != null) {
+    return f.format(dateTime);
+  }
+  return "";
+}
+String imageURL="";

@@ -110,6 +110,7 @@ class DatabaseHelper {
       String? street,
       String? doorNo,
       String? zipcode,
+        String?dob,
       String? phone,
       String? image}) async {
     var userId;
@@ -125,6 +126,7 @@ class DatabaseHelper {
     ).then((value) async {
       if (value.user != null && value.user!.uid.isNotEmpty) {
         await updateUser(
+          dob: dob,
             name: username ?? "",
             lastname: lastname ?? "",
             email: email ?? "",
@@ -147,6 +149,7 @@ class DatabaseHelper {
       {String? name,
       String? lastname,
       String? email,
+        String?dob,
       String? password,
       String? city,
       String? street,
@@ -163,12 +166,30 @@ class DatabaseHelper {
           "Name": name ?? "",
           "LastName": lastname ?? "",
           "Email": email ?? "",
+          "Date of Birth":dob??"",
           "Password": password ?? "",
           "City": city ?? "",
           "Street": street ?? "",
           "Door No": doorNo ?? "",
           "Zipcode": zipcode ?? "",
           "Phone": phone ?? "",
+          "image": image ?? ""
+        },
+      );
+  }
+
+  Future updateUserData(
+      {String? name,
+        String? email,
+        String? password,
+        String? phone,
+        String? uid,
+        String? image}) async {
+    print("user Updated in Firestore");
+    return await dbStore.collection("Users").doc(uid)
+      ..update(
+        {
+          "Name": name ?? "",
           "image": image ?? ""
         },
       );

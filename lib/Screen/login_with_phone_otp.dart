@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app_2/helper/api_helper.dart';
 import 'package:food_app_2/widget/custom_scaffold.dart';
 import 'package:food_app_2/widget/otp_field/otp_field.dart';
-import 'package:sms_autofill/sms_autofill.dart';
+import 'package:sms_and_phone_autofill/sms_autofill.dart';
 import '../cubit/userdata_cubit.dart';
 import '../helper/Style.dart';
 import '../helper/app_color.dart';

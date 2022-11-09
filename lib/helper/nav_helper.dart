@@ -6,6 +6,7 @@ import 'package:food_app_2/Screen/login.dart';
 import 'package:food_app_2/Screen/login_with_mob.dart';
 import 'package:food_app_2/Screen/login_with_phone_otp.dart';
 import 'package:food_app_2/Screen/otp.dart';
+import 'package:food_app_2/Screen/setting_screen.dart';
 import 'package:food_app_2/Screen/sign_up.dart';
 import 'package:food_app_2/Screen/dashBoard.dart';
 import 'package:food_app_2/Screen/splashscreen.dart';
@@ -25,6 +26,7 @@ const String forgot = "/forgot";
 const String loginWithMob = "/loginWithMob";
 const String otpScreen = "/otp";
 const String dashBoard = "/dashBoard";
+const String settings = "/settings";
 
 Route<Object?>? generateRoute(RouteSettings settings) {
   return getRoute(settings.name);
@@ -67,6 +69,10 @@ Route<Object?>? getRoute(String? name, {LinkedHashMap? args}) {
     case otpScreen:
       return MaterialPageRoute(
           builder: (context) => OtpScreen(args),
+          settings: RouteSettings(name: name));
+    case settings:
+      return MaterialPageRoute(
+          builder: (context) => SettingScreen(       ),
           settings: RouteSettings(name: name));
   }
   return null;

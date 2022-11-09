@@ -12,12 +12,16 @@ Future<String> getUserMail() async {
 
 Future<String> getUserImage() async {
   var userData = await SecureStorage.getUserData();
-  print(userData.image);
   return userData.image ?? "";
 }
 
 Future<String> getMobileNumber() async {
   var userData = await SecureStorage.getUserData();
-  print(userData.phone);
   return userData.phone ?? "";
+}
+
+Future<String> getUiD() async {
+  var userData = await SecureStorage.getUserData();
+  print(userData.uid);
+  return userData.uid ?? "";
 }
