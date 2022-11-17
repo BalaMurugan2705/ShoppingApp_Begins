@@ -142,7 +142,6 @@ class Profile extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    getUserName();
                   },
                   child: ListTile(
                     minLeadingWidth: 0,

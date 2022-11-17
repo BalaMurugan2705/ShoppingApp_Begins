@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app_2/helper/api_helper.dart';
 import 'package:food_app_2/widget/custom_scaffold.dart';
 import 'package:food_app_2/widget/otp_field/otp_field.dart';
-import 'package:sms_and_phone_autofill/sms_autofill.dart';
 import '../cubit/userdata_cubit.dart';
 import '../helper/Style.dart';
 import '../helper/app_color.dart';
@@ -158,25 +157,7 @@ class _LoginWithPhoneOtpState extends State<LoginWithPhoneOtp> {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: PhoneFieldHint(
-          controller: phone,
-          autoFocus: true,
-          inputFormatters: [LengthLimitingTextInputFormatter(10)],
-          style: FdStyle.sofia(
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
-              color: AppColor.appBlack1),
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.zero,
-            border: InputBorder.none,
-            labelText: AppLocalizations.of(context)?.translate("phone") ?? "",
-            labelStyle: FdStyle.sofia(
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-                color: AppColor.textGrey),
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
-          ),
-        ),
+
       ),
     );
   }

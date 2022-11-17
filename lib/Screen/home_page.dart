@@ -19,7 +19,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     DatabaseHelper().getToken();
     SecureStorage.getUserData();
-    context.read<ProductCubit>().getAllProducts(context);
     return Scafold(
       child: SingleChildScrollView(
         child: BlocBuilder<ProductCubit, ProductState>(
@@ -129,6 +128,7 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10),
       child: ListViewBuilderWidget(
         productList: list.product,
+
       ),
     );
   }

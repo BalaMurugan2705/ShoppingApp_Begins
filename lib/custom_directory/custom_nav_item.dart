@@ -15,7 +15,7 @@ class CustomNavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        currentIndex = id ?? 0;
+        index.value = id ?? 0;
         setPage!();
       },
       child: CircleAvatar(
@@ -24,12 +24,12 @@ class CustomNavItem extends StatelessWidget {
         // Theme.of(context).primaryColor,
         child: CircleAvatar(
           radius: 15,
-          backgroundColor: currentIndex == id
+          backgroundColor: index.value == id
               ? Colors.white.withOpacity(0.9)
               : Colors.transparent,
           child: SvgPicture.asset(
             icon!,
-            color: currentIndex == id
+            color: index.value == id
                 ? Colors.black
                 : Colors.white.withOpacity(0.9),
             height: 20,

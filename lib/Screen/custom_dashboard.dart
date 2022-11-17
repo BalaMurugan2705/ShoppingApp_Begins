@@ -20,16 +20,21 @@ class CustomDashboard extends StatelessWidget {
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          PageView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: pageController,
-            children: [
-              HomePage(),
-              Shop(),
-              Bag(),
-              Favourite(),
-              Profile(),
-            ],
+          ValueListenableBuilder(
+            valueListenable: pageController,
+            builder: (context,PageController page,child) {
+              return PageView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: page,
+                children: [
+                  HomePage(),
+                  Shop(),
+                  Bag(),
+                  Favourite(),
+                  Profile(),
+                ],
+              );
+            }
           ),
           CustomBottomNavigationBar()
         ],

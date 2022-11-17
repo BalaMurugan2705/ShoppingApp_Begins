@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:food_app_2/helper/api_constant.dart';
 import 'package:food_app_2/model/GetProductDetails.dart';
 import 'package:food_app_2/model/userModel_forDb.dart';
 import 'package:http/http.dart';
@@ -32,6 +33,35 @@ class APIHelper {
     return await makeReq(url, body, method: Method.POST);
   }
 
+  addProduct(String userID,String productId,int quantity) async {
+    String url = "";
+    var body = {
+      "userId":userID,
+      "products":[{
+        "productId":productId,
+        "quantity": quantity
+      }]
+    };
+    try {
+      url = "${hostUrl+addCart}";
+      var data = await makeReq(url, body, method: Method.POST);
+      if (data != null) {
+        return  data;
+      }
+    } on ApiFailure catch (e) {
+      return e.message;
+    }
+    return "";
+  }
+
+  getCartProduct({
+    String url = "",
+    var body,
+    String user="",
+  }) async {
+    url = "${hostUrl+getCarts+user}";
+    return await makeReq(url, body, method: Method.POST);
+  }
   makeReq(String URL, dynamic body,
       {Method method = Method.POST, String token = ""}) async {
     final ioc = new HttpClient();

@@ -24,6 +24,7 @@ class GetProductDetails {
   String? category;
   String? image;
   Rating? rating;
+  int? count;
 
   GetProductDetails(
       {this.id,
@@ -32,6 +33,7 @@ class GetProductDetails {
       this.description,
       this.category,
       this.image,
+        this.count=0,
       this.rating});
 
   GetProductDetails.fromJson(Map<String, dynamic> json) {
@@ -41,6 +43,7 @@ class GetProductDetails {
     description = json['description'];
     category = json['category'];
     image = json['image'];
+    count = json['count']??0;
     rating =
         json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
   }
@@ -53,6 +56,7 @@ class GetProductDetails {
     data['description'] = this.description;
     data['category'] = this.category;
     data['image'] = this.image;
+    data['count'] = this.count;
     if (this.rating != null) {
       data['rating'] = this.rating?.toJson();
     }

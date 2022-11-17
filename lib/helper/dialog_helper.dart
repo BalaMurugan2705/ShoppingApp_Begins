@@ -177,6 +177,7 @@ class DialogueHelper {
                       await referenceImageToUpload.putFile(File(file.path));
                       imageURL=await referenceImageToUpload.getDownloadURL();
                       print(imageURL.toString());
+                      back(null);
                     }
                     catch(e){}
 
@@ -206,8 +207,11 @@ class DialogueHelper {
                       await referenceImageToUpload.putFile(File(file.path));
                       imageURL=await referenceImageToUpload.getDownloadURL();
                       print(imageURL.toString());
+                      back(null);
                     }
-                    catch(e){}
+                    catch(e){
+                      print(e);
+                    }
                   }, icon: Icon(Icons.folder_copy_rounded)),
                   Text(
                     AppLocalizations.of(context)?.translate("gallery") ?? "",

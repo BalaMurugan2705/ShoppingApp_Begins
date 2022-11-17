@@ -13,14 +13,14 @@ import 'favourite.dart';
 class DashBoard extends StatelessWidget {
   DashBoard({Key? key}) : super(key: key);
 
-  final _pageController = PageController(initialPage: 0);
-  ValueNotifier<int> _pageNavigationIconNotifier = ValueNotifier<int>(0);
+  PageController pageController = PageController(initialPage: 0);
+  ValueNotifier<int> pageNavigationIconNotifier = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
     return Scafold(
       bottomNavigationBar: ValueListenableBuilder(
-        valueListenable: _pageNavigationIconNotifier,
+        valueListenable: pageNavigationIconNotifier,
         builder: (context, value, child) {
           return BottomNavigationBar(
             items: [
@@ -86,7 +86,7 @@ class DashBoard extends StatelessWidget {
       ),
       child: PageView(
         physics: NeverScrollableScrollPhysics(),
-        controller: _pageController,
+        controller: pageController,
         children: [
           HomePage(),
           Shop(),
@@ -99,7 +99,7 @@ class DashBoard extends StatelessWidget {
   }
 
   getPage(int index) {
-    _pageNavigationIconNotifier.value = index;
-    _pageController.jumpToPage(index);
+    pageNavigationIconNotifier.value = index;
+    pageController.jumpToPage(index);
   }
 }
